@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Registro de Denuncias de Violencia de Genero en Argentina</title>
+   <link rel="stylesheet" href="{{ url_for ('static',
+         filename='lib/css/bootstrap.min.css')}}">
+   <link rel="stylesheet" href="{{ url_for ('static',
+         filename='lib/css/keen-dashboards.css')}}">
+   <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/dc.css')}}">
+   <link rel="stylesheet" href="{{ url_for ('static', filename='css/custom.css')}}">
+   <link rel="stylesheet" href="{{ url_for ('static', filename='lib/css/introjs.css')}}">
+
+ </head>
+<body class="application">
+
+<nav class="navbar navbar-inverse navbar-fixed-top mobile-nofixed">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Panel Grafico de Femicidios y Violencia de Genero</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li role="presentation" class="active"><a href="#">Numero de Denuncias: <span id="total" class="badge"></span></a></li>
+            <li data-step="7" data-intro="Si desea desmarcar filtros haz click aqui" data-position="down"><a class="reset" href="javascript:dc.filterAll();dc.renderAll();">Quitar Filtros</a></li>
+            <li role="presentation" class="intro_button" type="button" autofocus onclick="javascript:introJs().start();"><a href="#">Tutorial</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+
+    <div class="panel panel-default" data-step="1" data-intro="El grafico muestra el porcentaje de denuncias segun la idendidad de genero del agravado. Para filtrar el contenido hacer click en la seccion deseada" data-position="right">
+      <div class="panel-heading ">
+        <h3 class="panel-title">Segun Identidad de Genero</h3>
+      </div>
+      <div class="panel-body">
+            <div id="gender-type-pie-chart">
+            </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" data-step="2" data-intro="El grafico muestra el numero de denuncias hechas desde 2012 hasta 2017. Para ver los resultados en un periodo particular desplegar el menu y seleccionar" data-position="left">
+      <div class="panel-heading" style="padding-bottom: 28px">
+       <h3 class="panel-title pull-left" >Denuncias por fecha</h3>
+         <div class="pull-right" style="padding: 0" id="menu-select"></div>
+      </div>
+      <div class="panel-body">
+           <div id="time-chart"></div>
+      </div>
+    </div>
+
+ </div>
+
+<div class="row">
+   <div class="panel panel-default" data-step="3" data-intro="En esta seccion muestra las principales 5 modalidades de agresion. Haz click en el tipo de agresion de su interes para filtrar los resultados" data-position="right">
+      <div class="panel-heading">
+        <h3 class="panel-title">Principales Modalidades Comisivas</h3>
+      </div>
+      <div class="panel-body">
+           <div id="agression-type-row-chart"></div>
+          <a class='reset'
+          href='javascript:myChart.filterAll();dc.redrawAll();'
+          style='visibility: hidden;'>reset</a>
+      </div>
+    </div>
+
+    <div class="panel panel-default" data-step="4" data-intro="El eje horizontal corresponde a la edad del agravado, mientras que el eje vertical al numero de denuncias hechas a la edad correspondiente" data-position="left">
+      <div class="panel-heading ">
+        <h3 class="panel-title">Segun Edad</h3>
+      </div>
+      <div class="panel-body">
+            <div id="age-Chart">  </div>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel panel-default" data-step="5" data-intro="Rol de la victima" data-position="right">
+      <div class="panel-heading ">
+        <h3 class="panel-title">Tipo de Victima</h3>
+      </div>
+      <div class="panel-body">
+           <div id="victim-type-pie-chart"></div>
+
+      </div>
+    </div>
+
+
+    <div class="panel panel-default" data-step="6" data-intro="Visualizacion de datos por provincia. Selecciona la provincia de interes para ver correspondencia de datos en otros graficos" data-position="left">
+        <div class="panel-heading ">
+            <h3 class="panel-title">Por Provicia</h3>
+        </div>
+        <div class="panel-body">
+            <div id="state-chart">  </div>
+        </div>
+    </div>
+
+        <div class="panel panel-default" data-step="6" data-intro="Visualizacion de datos por provincia. Selecciona la provincia de interes para ver correspondencia de datos en otros graficos" data-position="left">
+        <div class="panel-heading ">
+            <h3 class="panel-title">Victima</h3>
+        </div>
+        <div class="panel-body">
+            <div id="data-table">  </div>
+        </div>
+    </div>
+ </div>
+<script src="{{ url_for ('static', filename='lib/js/jquery.min.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/bootstrap.min.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/crossfilter.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/d3.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/dc.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/queue.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/intro.js')}}"></script>
+<script src="{{ url_for ('static', filename='lib/js/keen.min.js')}}"></script>
+<script src="{{ url_for ('static', filename='js/graph.js')}}"></script>
+</body>
+</html>
