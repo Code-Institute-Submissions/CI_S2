@@ -2,12 +2,14 @@ from flask import Flask
 from flask import render_template
 from pymongo import MongoClient
 import json
+import os
 
 app = Flask(__name__)
 
+MONGO_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
-DBS_NAME = 'regfemicidios'
+DBS_NAME = os.getenv('MONGO_DB_NAME','regfemicidios')
 COLLECTION_NAME = 'project'
 FIELDS = {'_id': False, 'edad': True, 'identidad_genero': True, 'tipo_victima': True,
           'lugar_hecho': True, 'numero': True, 'modalidad_comisiva': True, 'fecha_hecho': True}
