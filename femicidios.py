@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 
-MONGODB_URI = os.getenv('MONGODB_URI')
+MONGODB_URI = os.getenv('MONGODB_URI', 'mongodb://localhost:27017')
 # MONGODB_HOST = 'localhost'
 # MONGODB_PORT = 27017
 DBS_NAME = os.getenv('MONGO_DB_NAME','regfemicidios')
@@ -23,7 +23,7 @@ def index():
 @app.route("/regfemicidios/project")
 def femicidios_projects():
     # connection = MongoClient(MONGODB_HOST, MONGODB_PORT)
-    connection = MongoClient('MONGODB_URI')
+    connection = MongoClient(MONGODB_URI)
     collection = connection[DBS_NAME][COLLECTION_NAME]
     projects = collection.find(projection=FIELDS, limit=1000)
     json_projects = []
