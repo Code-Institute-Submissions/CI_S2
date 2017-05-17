@@ -1,6 +1,5 @@
 queue()
    .defer(d3.json, "/regfemicidios/project")
-   .defer(d3.json, "static/geojson/argeo.json")
    .await(makeGraphs);
  
 function makeGraphs(error, projectsJson) {
