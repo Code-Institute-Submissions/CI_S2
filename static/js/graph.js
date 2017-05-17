@@ -3,7 +3,7 @@ queue()
    .defer(d3.json, "static/geojson/argeo.json")
    .await(makeGraphs);
  
-function makeGraphs(error, projectsJson, statesJson) {
+function makeGraphs(error, projectsJson) {
 
    //projectsJson
    var femicidios = projectsJson;
@@ -41,7 +41,7 @@ function makeGraphs(error, projectsJson, statesJson) {
    var yearDim  = ndx.dimension(function(d) {return +d["fecha_hecho"].getFullYear();});
 
 
-
+   //Grupos
    var all = ndx.groupAll();
    var dateGroup = dateDim.group();
    var genderTypeGroup = genderTypeDim.group();
@@ -49,35 +49,24 @@ function makeGraphs(error, projectsJson, statesJson) {
    var victimTypeGroup = victimTypeDim.group();
    var stateGroup = stateDim.group();
    var total = ndx.groupAll().reduceSum(function(d) {return d["numero"];});
-   var totalByState = stateDim.group().reduceSum(function (d) {return d["numero"];});
    var ageGroup = ageDim.group();
    var year_total = yearDim.group();
 
 
 
-
-
-   //Define values (to be used in charts)
    var minDate = dateDim.bottom(1)[0]["fecha_hecho"];
    var maxDate = dateDim.top(1)[0]["fecha_hecho"];
-   // var maxState = totalByState.top(1)[0].value;
-   //
-
-
 
 
    //Graficos
    var totalND = dc.numberDisplay("#total");
    var genderTypeChart = dc.pieChart("#gender-type-pie-chart");
    var timeChart = dc.lineChart("#time-chart");
+   var selectField = dc.selectMenu('#menu-select');
    var agressionTypeChart = dc.rowChart("#agression-type-row-chart");
    var victimTypeChart = dc.pieChart("#victim-type-pie-chart");
    var ageChart = dc.barChart("#age-Chart");
-
-   // var mapChart = dc.geoChoroplethChart("#map-chart");
    var stateChart = dc.rowChart("#state-chart");
-   var datatable = dc.dataTable("#data-table");
-
 
 
 totalND
@@ -88,19 +77,19 @@ totalND
 
 
 genderTypeChart
-   .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-   .width(450)
+   .ordinalColors(["#26547C", "#EF476F", "#FFD166", "#06D6A0"])
+   .width(400)
    .height(250)
    .dimension(genderTypeDim)
    .group(genderTypeGroup)
    .renderLabel(false)
-   .legend(dc.legend().x(0).y(1).itemHeight(13).gap(5))
+   .legend(dc.legend().x(-5).y(1).itemHeight(13).gap(5))
    .transitionDuration(500);
 
 
 timeChart
-   .ordinalColors(["#ff2d17"])
-   .width(900)
+   .ordinalColors(["#ffb725"])
+   .width(800)
    .height(250)
    .margins({top: 10, right: 50, bottom: 30, left: 50})
    .dimension(dateDim)
@@ -120,81 +109,48 @@ timeChart
    .xAxis().tickFormat(function(v) {return dateFormat(v)});
 
 
-selectField = dc.selectMenu('#menu-select')
+selectField
    .dimension(yearDim)
    .group(year_total);
 
 
 agressionTypeChart
-   .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
-   .width(410)
+   .ordinalColors(["#644536", "#B2675E", "#C4A381", "#BBD686", "#EDF28E"])
+   .width(370)
    .height(300)
    .dimension(agressionTypeDim)
    .group(agressionTypeGroup)
    .renderLabel(true)
-    .title(function(d){return d.value;})
-    .elasticX(true)
+   .title(function(d){return d.value;})
+   .elasticX(true)
    .data(function(d) {return d.top(5);})
    .xAxis().ticks(4);
 
 
 victimTypeChart
    .ordinalColors(["#42FF76", "#FFB725"])
-   .width(300)
-   .height(300)
+   .width(350)
+   .height(350)
    .dimension(victimTypeDim)
    .group(victimTypeGroup)
-   .innerRadius(60)
+   .innerRadius(70)
    .renderLabel(false)
-   .legend(dc.legend().x(125).y(135).itemHeight(13).gap(5))
+   .legend(dc.legend().x(140).y(155).itemHeight(13).gap(5))
    .transitionDuration(300);
-
-// mapChart
-//     .width(500)
-//     .height(800)
-//     .dimension(stateDim)
-//     .group(stateGroup)
-//     .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#0061B5"])
-//     // .colorDomain([0, maxState])
-//     .overlayGeoJson(statesJson["features"], "state", function (d) {
-//         return d.properties.name;
-//     })
-//     .projection(d3.geo.mercator().scale(10).center([-60, -35])
-//     .translate([340, 150]));
 
 
 stateChart
-    .ordinalColors(["#79CED7", "#66AFB2", "#C96A23", "#D3D1C5", "#F5821F"])
+    .ordinalColors(["#C6C5B9", "#62929E"])
     .width(300)
-    .height(500)
+    .height(800)
     .dimension(stateDim)
     .group(stateGroup)
     .xAxis()
-    .ticks(4);
-    // .width(800)
-    // .height(180)
-    // .margins({top: 10, right: 50, bottom: 30, left: 40})
-    // .dimension(stateDim)
-    // .group(stateGroup)
-    // .elasticY(true)
-    // .centerBar(true)
-    // .gap(1)
-    // .round(dc.round.floor)
-    // .alwaysUseRounding(true)
-    // .x(d3.scale.linear().domain([-25, 25]))
-    // .renderHorizontalGridLines(true);
-    // .filterPrinter(function (filters) {
-    //         var filter = filters[0], s = '';
-    //         s += numberFormat(filter[0]) + '% -> ' + numberFormat(filter[1]) + '%';
-    //         return s;
-    //     })
-    // .xAxis().tickFormat(
-    //     function (v) { return v + '%'; })
-    // .yAxis().ticks(5);
+    .ticks(6);
 
 
 ageChart
-    .width(900)
+    .width(800)
     .height(200)
     .margins({top: 10, right: 50, bottom: 30, left: 40})
     .dimension(ageDim)
@@ -208,24 +164,6 @@ ageChart
     .renderHorizontalGridLines(true)
     .xAxisLabel("Edad")
     .xAxis().ticks(50);
-
-datatable
-    .dimension(total)
-    .group(totalByState);
-// create the columns dynamically
-//     .columns([
-//         function (d) {
-//                 return d["State"];
-//         },
-//         function (d) {
-//                 return d["edad"];
-//         },
-//         function (d) {
-//                 return d["modalidad_comisiva"];
-//         },
-//     ]);
-
-
 
 //
    dc.renderAll();
