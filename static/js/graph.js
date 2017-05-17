@@ -114,7 +114,7 @@ selectField
 
 
 agressionTypeChart
-   .ordinalColors(["#644536", "#B2675E", "#C4A381", "#BBD686", "#EDF28E"])
+   .ordinalColors(["#EDF28E", "#644536", "#B2675E", "#C4A381", "#BBD686"])
    .width(370)
    .height(300)
    .dimension(agressionTypeDim)
