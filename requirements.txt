@@ -6,3 +6,4 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 pymongo==3.4.0
 Werkzeug==0.12.1
+wheel==0.29.0
