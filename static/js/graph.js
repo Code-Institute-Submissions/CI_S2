@@ -76,7 +76,7 @@ totalND
 
 
 genderTypeChart
-   .ordinalColors(["#26547C", "#EF476F", "#FFD166", "#06D6A0"])
+   .ordinalColors(["#FFD166", "#26547C", "#EF476F", "#06D6A0"])
    .width(400)
    .height(250)
    .dimension(genderTypeDim)
@@ -114,7 +114,7 @@ selectField
 
 
 agressionTypeChart
-   .ordinalColors(["#EDF28E", "#644536", "#B2675E", "#C4A381", "#BBD686"])
+   .ordinalColors(["#644536", "#B2675E", "#C4A381", "#BBD686", "#EDF28E"])
    .width(370)
    .height(300)
    .dimension(agressionTypeDim)
